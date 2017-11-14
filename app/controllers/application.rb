@@ -1,4 +1,3 @@
-
 # ***INDEX***
 get '/contacts' do
   @contacts = Contact.all
@@ -14,7 +13,13 @@ end
 # ***CREATE***
 post '/contacts' do
   @contact = Contact.create(params[:contact])
-  redirect '/'
+  if @contact.valid?
+    redirect '/'
+  else
+    status 422
+    @errors = @contact.errors.full_messages
+    erb :'contacts/new'
+  end
 end
 
 
@@ -34,7 +39,13 @@ end
 put '/contacts/:id' do
   @contact = Contact.find(params[:id])
   @contact.update(params[:contact])
-  redirect "/contacts/#{@contact.id}"
+  if @contact.valid?
+    redirect "/contacts/#{@contact.id}"
+  else
+    status 422
+    @errors = @contact.errors.full_messages
+    erb :'contacts/edit'
+  end
 end
 
 # ***DELETE***
