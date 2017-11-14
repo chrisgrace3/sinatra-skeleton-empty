@@ -26,7 +26,11 @@ end
 # ***SHOW***
 get '/contacts/:id' do
   @contact = Contact.find(params[:id])
-  erb :'contacts/show'
+  if request.xhr? # as opposed to a get request
+    erb :'contacts/_contact', layout: false
+  else
+    erb :'contacts/show'
+  end
 end
 
 # ***EDIT***
