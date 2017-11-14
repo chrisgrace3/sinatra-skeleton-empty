@@ -6,7 +6,7 @@ end
 # Display a list of all contacts
 get '/contacts' do
   @contacts = Contact.all
-  @contacts.map{ |contact| contact.email }.to_s
+  erb :'contacts/index'
 end
 
 # **NEW**
@@ -24,7 +24,7 @@ end
 # show a specific contact
 get '/contacts/:id' do
   @contact = Contact.find(params[:id])
-  @contact.email
+  erb :'contacts/show'
 end
 
 # **EDIT**
