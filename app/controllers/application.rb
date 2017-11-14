@@ -2,8 +2,11 @@ get '/' do
   redirect '/contacts'
 end
 
+# **INDEX**
+# Display a list of all contacts
 get '/contacts' do
-  "display a list of all contacts"
+  @contacts = Contact.all
+  @contacts.map{ |contact| contact.email }.to_s
 end
 
 # **NEW**
@@ -18,8 +21,10 @@ end
 
 
 # **SHOW**
+# show a specific contact
 get '/contacts/:id' do
-  "show a specific contact"
+  @contact = Contact.find(params[:id])
+  @contact.email
 end
 
 # **EDIT**
